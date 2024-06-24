@@ -27,5 +27,10 @@ leafpad sum1ton.c &
 ./a.out
 ```
 
+**5.Implementing simple C code in the RISC-V kit**
+ *use the following command to implement the code*
+ ```
+riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+```
 
 </details>
