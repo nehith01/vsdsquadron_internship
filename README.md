@@ -152,7 +152,7 @@ riscv64-unknown-elf-objdump -d vendmachine.o | less
 
   <br>
     
-  **objective:**
+  **Objective:**
 
   The main objective of the task is to run the Change Dispense Wizard: Engineering a Vending Machine with Advanced Change system program using spike command and to verify the output with gcc command and the output for both the instructions should be same. 
 
