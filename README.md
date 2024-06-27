@@ -144,3 +144,48 @@ riscv64-unknown-elf-objdump -d vendmachine.o | less
 ![reduced code](https://github.com/nehith01/vsdsquadron_internship/blob/main/task2/reduced%20assembly%20codes.png?raw=true)
 
 </details>
+
+
+
+<details>
+  <summary><b> Task 3:</b> The Task is to implement the Change Dispense Wizard: Engineering a Vending Machine with Advanced Change system using spike command and debug the program.</summary>
+
+  <br>
+    
+  **objective:**
+
+  The main objective of the task is to run the Change Dispense Wizard: Engineering a Vending Machine with Advanced Change system program using spike command and to verify the output with gcc command and the output for both the instructions should be same. 
+
+  We will be checking the output and assembly codes under 2 conditions one is using O1 and Ofast instruction.
+
+  *Instruction for implementing spike function*
+
+  ```
+riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o vendmachine.o vendmachine.c
+spike pk vendmachine.o
+```
+The command `riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o vendmachine.o vendmachine.c` is used to run the vending machine program using gcc and to run the same program using spike the instruction is `spike pk vendmachine.o` after running the program we need to check the output for both spike and gcc . If the output are same then  the program is implemented correctly 
+
+*Output for vending machine program using spike command:*
+
+![output](https://github.com/nehith01/vsdsquadron_internship/blob/main/task3/spike%20output.png?raw=true)
+
+The output should be verified with the output gcc command and the outputs are the same and verified. The next step is to debug the assembly codes for the vending machine and to debug we need to launch a debugger and the command to launch the debugger is `spike -d pk vendmachine.o` and to load the data the command is `until pc 0 100b0` by using this command the contents of the assembly code for the vending machine program.
+
+![output](https://github.com/nehith01/vsdsquadron_internship/blob/main/task3/assembly%20code%20for%20%2001%20instruction.png?raw=true)
+
+![output](https://github.com/nehith01/vsdsquadron_internship/blob/main/task3/assembly%20code%20for%2001%20instruction%20cont.png?raw=true)
+
+Now we will be checking the output using Ofast command and the command for implementing is 
+```
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o vendmachine.o vendmachine.c
+spike pk vendmachine.o
+```
+**The output for Ofast command is:**
+
+![output](https://github.com/nehith01/vsdsquadron_internship/blob/main/task3/assembly%20code%20for%20ofast%20instruction.png?raw=true)
+
+![output](https://github.com/nehith01/vsdsquadron_internship/blob/main/task3/assembly%20code%20for%20ofast%20instruction%20cont.png?raw=true)
+
+
+</details>
