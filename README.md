@@ -205,7 +205,7 @@ spike pk vendmachine.o
 
 
 <details>
-  <summary><b>Task4:</b> The Task is to classify the given instructions set into instruction types and find the 32-bit instruction code for each instruction</summary>
+  <summary><b>Task 4:</b> The Task is to classify the given instructions set into instruction types and find the 32-bit instruction code for each instruction</summary>
   <br>
 
   **RISC-V:**
@@ -712,3 +712,103 @@ opcode (7 bits) | rd (5 bits) | funct3 (3 bits) | rs1 (5 bits) | imm (12 bits)
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+<details>
+  <summary><b>Task 5:</b>The task is to generate Verilog and testbench using RISC-V and verify the functional simulation for instruction and waveform</summary>
+  <br>
+  
+  **Steps for functional simulation:**
+  1. First to run the Verilog we need a tool called iverilog to install iverilog commands are `sudo apt-get update` and `sudo apt-get install iverilog`
+  2. To get the waveform we need a tool called gtkwave command is `sudo apt-get install gtkwave`
+  3. Create a directory using the command `mkdir Nehith`
+  4. Create files using the touch command as `touch Nehith_rv32i.v` and `touch Nehith_rv32i_tb.v`
+  5. Writing Verilog code and testbench is not part of the internship we will be taking references from the repo https://github.com/vinayrayapati/rv32i/
+  6. Now copy the code from the `iiitb_rv32i.v` and `iiitb_rv32i_tb.v` and paste the code in `Nehith_rv32i.v` and `Nehith_rv32i_tb.v` in leaf pad and save the file
+  7. To run the code and simulate use the command `iverilog -o Nehith_rv32i Nehith_rv32i.v Nehith_rv32i_tb.v` and to get the output `./Nehith_rv32i`
+  8. To get the wave from use the command `gtkwave iiitb_rv32i.vcd`
+
+
+![Screenshot (79)](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/6abbacc9-cc4b-4dbe-8ec7-d1c0acfe1ea4)
+
+
+
+
+![Screenshot (78)](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/b09c229a-d06b-4ec0-9f37-e7c330c78f36)
+
+After this, it will open gtkwave and the waveforms are 
+
+*ADD r1,r2,r3*
+
+![ADD](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/c179cc0e-0c17-4663-ad03-61952b935ccf)
+
+*SUB r3,r1,r2*
+
+![SUB](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/50ab6460-502e-420e-b6a7-b4cfbbb48fee)
+
+*AND r2,r1,r3*
+
+![AND](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/56804d00-b0ea-41f5-939e-ec0d6020c472)
+
+*OR r8,r2,r5*
+
+![OR](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/fe468d74-84f0-403e-802d-9abb3d434461)
+
+
+*XOR r8,r1,r4*
+
+![OR](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/b3159607-8902-4a31-9984-8570a07fc53e)
+
+
+*SLT r10,r2,r4*
+
+![SLT](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/7fdda5d8-e20f-45bf-b145-40f508a84331)
+
+
+*ADDI r122,r3,r5*
+
+
+![ADDI](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/8b397efc-a522-494d-a8cd-6adea42e1028)
+
+
+*SW r3,r1,r4*
+
+
+![SW](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/5ec2e37b-01a1-4d19-8ce2-dc681fc96f74)
+
+*SRL r16,r11,r2*
+
+
+![SRL](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/ed6abfb5-f13b-4a98-adc5-8c61142e4f1a)
+
+
+*BNE r0,r1,20*
+
+
+![BNE](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/e8177df7-ea8d-4620-ad2d-7ad7d088ebe5)
+
+
+*BEQ r0,r0,15*
+
+
+![BEQ](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/dcf87aba-c9a0-4a7a-adc8-6f9c454a686f)
+
+
+*SLL r15,r11,r2*
+
+
+![SLL](https://github.com/nehith01/vsdsquadron_internship/assets/127872579/50ce3f04-dead-4453-87af-4fb01d7b7ba2)
+
+
+</details>
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
