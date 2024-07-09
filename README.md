@@ -808,7 +808,152 @@ After this, it will open gtkwave and the waveforms are
 
 
 
+<details>
+  <summary><b>Task 6: </b>The task is to implement Change Dispense Wizard: Engineering a Vending Machine with Advanced Change System using RISC-V board </summary>
+<br>
 
+  **OVERVIEW:**
+
+  The Change Dispense Wizard project involves creating a vending machine with an advanced change dispensing system. This system will calculate the change due to the customer and dispense the appropriate denominations of coins. The RISC-V board will be used to control the process.
+
+
+**COMPONENTS REQUIRED:**
+
+1. RISC-V development board 
+2. Coin dispenser module (compatible with various denominations)
+3. LCD module
+4. Keypad for user input
+5. Power supply (regulated 5V)
+6. Connecting wires
+7. Breadboard
+
+
+
+**Circuit Connections:**
+
+**RISC-V Board:**
+
+GPIO pins for controlling peripherals
+UART pins for serial communication (optional)
+I2C/SPI pins for communication with display and other modules
+
+**Coin Dispenser Module:**
+
+Control pins connected to GPIO pins of the RISC-V board
+Power pins connected to 5V and GND
+
+**LCD Display Module:**
+
+Data pins connected to GPIO pins of the RISC-V board
+Control pins (RS, RW, E) connected to GPIO pins of the RISC-V board
+Power pins connected to 5V and GND
+
+**Keypad:**
+
+Row and column pins connected to GPIO pins of the RISC-V board
+
+
+
+**PIN CONNECTIONS:**
+
+
+**Coin Dispenser Module:**
+
+| Coin Dispenser | RISC-V |
+| -------------- | ------ |
+| CP 1           | GPIO 1 |
+| CP 2           | GPIO 2 |
+| CP 3           | GPIO 3 |
+| Power          | 5V     |
+| Ground         | GND    |
+
+
+**LCD Display Module**
+
+| LCD Module | RISC-V |
+| ---------- | ------ |
+| RS         | GPIO 3 |
+| RW         | GPIO 4 |
+| E          | GPIO 5 |
+| D4         | GPIO 6 |
+| D5         | GPIO 7 |
+| D6         | GPIO 8 |
+| D7         | GPIO 9 |
+| Power      | 5V     |
+| Ground     | GND    |
+
+
+**Keypad:**
+
+ | Keypad     | RISC-V   |
+ | ---------- | -------- |
+ | ROW 1      | GPIO 10  |
+ | ROW 2      | GPIO 11  |
+ | ROW 3      | GPIO 12  |
+ | ROW 4      | GPIO 13  |
+ | COLUMN 1   | GPIO 14  |
+ | COLUMN 2   | GPIO 15  |
+ | COLUMN 3   | GPIO 16  |
+ | COLUMN 4   | GPIO 17  |
+
+
+**How to program**
+
+```
+#include <stdio.h>
+#include "lcd.h"
+#include "keypad.h"
+#include "coin_dispenser.h"
+
+#define NUM_DENOMINATIONS 6
+int denominations[NUM_DENOMINATIONS] = {100, 50, 25, 10, 5, 1};
+
+void calculateChange(int change, int coinCount[NUM_DENOMINATIONS]) {
+    for (int i = 0; i < NUM_DENOMINATIONS; i++) {
+        coinCount[i] = change / denominations[i];
+        change %= denominations[i];
+    }
+}
+
+int main() {
+    int productPrice, amountPaid, change;
+    int coinCount[NUM_DENOMINATIONS] = {0};
+
+    // Initialize peripherals
+    lcd_init();
+    keypad_init();
+    coin_dispenser_init();
+
+    // Display instructions on LCD
+    lcd_print("Enter price: ");
+    productPrice = keypad_read_int();
+
+    lcd_print("Enter amount paid: ");
+    amountPaid = keypad_read_int();
+
+    if (amountPaid < productPrice) {
+        lcd_print("Insufficient amount paid.");
+        return 1;
+    }
+
+    change = amountPaid - productPrice;
+    lcd_print("Change: ");
+    lcd_print_int(change);
+
+    calculateChange(change, coinCount);
+
+    for (int i = 0; i < NUM_DENOMINATIONS; i++) {
+        if (coinCount[i] > 0) {
+            coin_dispenser_dispense(denominations[i], coinCount[i]);
+        }
+    }
+
+    return 0;
+}
+```
+
+
+</details>
 
 
 
