@@ -897,6 +897,13 @@ Row and column pins connected to GPIO pins of the RISC-V board
  | COLUMN 4   | GPIO 17  |
 
 
+
+ **Circuit Diagram:**
+
+ ![Coin Dispenser Circuit Diagram](https://github.com/Jayanth853/Vsdsquadronmini/assets/173602478/3d7c6384-dd81-4f6e-b902-fa4413ceb142)
+
+
+
 **How to program**
 
 ```
