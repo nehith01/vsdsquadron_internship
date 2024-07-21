@@ -974,7 +974,7 @@ int main() {
 
 **Application Video:**
 
-[video](https://drive.google.com/file/d/12L0D7WL42ZrT0GCFsg5hrqvUk3WJ5HS-/view?usp=drivesdk)
+[Demonstration Video](https://drive.google.com/file/d/12L0D7WL42ZrT0GCFsg5hrqvUk3WJ5HS-/view?usp=drivesdk)
 
 </details>
 
