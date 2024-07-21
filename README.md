@@ -907,56 +907,69 @@ Row and column pins connected to GPIO pins of the RISC-V board
 **How to program**
 
 ```
+#include <ch32v00x.h>
 #include <stdio.h>
-#include "lcd.h"
-#include "keypad.h"
-#include "coin_dispenser.h"
+#include <debug.h>
 
-#define NUM_DENOMINATIONS 6
-int denominations[NUM_DENOMINATIONS] = {100, 50, 25, 10, 5, 1};
+#define GREEN_LED_PIN GPIO_Pin_6  // PD6
+#define RED_LED_PIN GPIO_Pin_7    // PD7
 
-void calculateChange(int change, int coinCount[NUM_DENOMINATIONS]) {
-    for (int i = 0; i < NUM_DENOMINATIONS; i++) {
-        coinCount[i] = change / denominations[i];
-        change %= denominations[i];
-    }
+// Configuring GPIO Pins
+void GPIO_Config(void) {
+    GPIO_InitTypeDef GPIO_InitStructure = {0};  // Structure variable used for GPIO configuration
+    
+    // Enable clock for GPIOD
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
+    
+    // Green LED Pin Configuration as output push-pull
+    GPIO_InitStructure.GPIO_Pin = GREEN_LED_PIN;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;  // Defined as Output Push-Pull Type
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;  // Defined Speed
+    GPIO_Init(GPIOD, &GPIO_InitStructure);
+    
+    // Red LED Pin Configuration as output push-pull
+    GPIO_InitStructure.GPIO_Pin = RED_LED_PIN;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;  // Defined as Output Push-Pull Type
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;  // Defined Speed
+    GPIO_Init(GPIOD, &GPIO_InitStructure);
+}
+
+void indicate_product_delivered() {
+    GPIO_SetBits(GPIOD, GREEN_LED_PIN);  // Turn on green LED
+    GPIO_ResetBits(GPIOD, RED_LED_PIN);  // Turn off red LED
+    Delay_Ms(500);                       // Keep green LED on for 500ms
+    GPIO_ResetBits(GPIOD, GREEN_LED_PIN); // Turn off green LED
+}
+
+void indicate_product_not_delivered() {
+    GPIO_SetBits(GPIOD, RED_LED_PIN);    // Turn on red LED
+    GPIO_ResetBits(GPIOD, GREEN_LED_PIN); // Turn off green LED
+    Delay_Ms(500);                       // Keep red LED on for 500ms
+    GPIO_ResetBits(GPIOD, RED_LED_PIN);  // Turn off red LED
 }
 
 int main() {
-    int productPrice, amountPaid, change;
-    int coinCount[NUM_DENOMINATIONS] = {0};
-
-    // Initialize peripherals
-    lcd_init();
-    keypad_init();
-    coin_dispenser_init();
-
-    // Display instructions on LCD
-    lcd_print("Enter price: ");
-    productPrice = keypad_read_int();
-
-    lcd_print("Enter amount paid: ");
-    amountPaid = keypad_read_int();
-
-    if (amountPaid < productPrice) {
-        lcd_print("Insufficient amount paid.");
-        return 1;
-    }
-
-    change = amountPaid - productPrice;
-    lcd_print("Change: ");
-    lcd_print_int(change);
-
-    calculateChange(change, coinCount);
-
-    for (int i = 0; i < NUM_DENOMINATIONS; i++) {
-        if (coinCount[i] > 0) {
-            coin_dispenser_dispense(denominations[i], coinCount[i]);
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);  // Configure the NVIC priority group
+    SystemCoreClockUpdate();  // Update system core clock
+    Delay_Init();  // Initialize delay function
+    GPIO_Config();  // Configure GPIO pins
+    
+    // Simulate product delivery status
+    int product_delivered = 1; // Set to 1 for successful delivery, 0 for failure
+    
+    while (1) {
+        if (product_delivered) {
+            indicate_product_delivered();
+        } else {
+            indicate_product_not_delivered();
         }
+        
+        Delay_Ms(1000);  // Delay of 10000ms (10 seconds) between status indications
     }
-
+    
     return 0;
 }
+
 ```
 
 **Application Video:**
